@@ -89,6 +89,55 @@ class Interfaz:
             ventana.destroy()
 
         tk.Button(ventana, text="Registrar", command=registrar).pack(pady=10)
+        
+    def modificar_usuario(self): # Método para modificar un usuario
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Modificar Usuario")
+        ventana.geometry("350x400")
+
+        registros = self.gestor.cargar_usuarios() # Carga los usuarios registrados
+        if not registros: # Verifica si hay usuarios registrados
+            tk.Label(ventana, text="No hay usuarios.", font=("Arial", 12)).pack(pady=20)
+            return
+
+        nombres = [r["nombre"] for r in registros] # Lista de nombres de los usuarios
+        seleccion = tk.StringVar(value=nombres[0])
+
+        tk.Label(ventana, text="Seleccione usuario:", font=("Arial", 12)).pack(pady=5)
+        ttk.Combobox(ventana, textvariable=seleccion, values=nombres).pack(fill="x", padx=20)
+
+        edad = tk.Entry(ventana)
+        actividad = tk.StringVar()
+        actividad.set("Spinning")
+        clases = tk.Entry(ventana)
+        asistencias = tk.Entry(ventana)
+
+        tk.Label(ventana, text="Nueva edad:").pack()
+        edad.pack()
+        tk.Label(ventana, text="Nueva actividad:").pack()
+        ttk.Combobox(ventana, textvariable=actividad, values=["Spinning", "Fisioterapia", "Rumba", "Fortalecimiento"]).pack()
+        tk.Label(ventana, text="Nuevo número de clases:").pack()
+        clases.pack()
+        tk.Label(ventana, text="Modificar asistencias:").pack()
+        asistencias.pack()
+
+        def guardar_cambios():  # Método para guardar los cambios realizados en el usuario
+            nombre = seleccion.get() # Obtiene el nombre del usuario seleccionado
+            for r in registros:
+                if r["nombre"] == nombre: # Busca el usuario en los registros
+                    if edad.get(): r["edad"] = edad.get()
+                    if actividad.get(): r["actividad"] = actividad.get() # Actualiza la actividad del usuario
+                    if clases.get(): r["clases"] = clases.get()
+                    if asistencias.get(): r["asistencias"] = int(asistencias.get())
+                    r["valor_pagado"] = Usuario(
+                        r["nombre"], r["edad"], r["actividad"], r["clases"], r["asistencias"]
+                    ).valor_pagado
+            self.gestor.actualizar_usuarios(registros) # Actualiza los usuarios en el gestor
+            messagebox.showinfo("Actualizado", "Usuario modificado correctamente.")
+            ventana.destroy()
+
+        tk.Button(ventana, text="Guardar", command=guardar_cambios).pack(pady=10)
+
 
 if __name__ == "__main__":
     root = tk.Tk()
