@@ -39,10 +39,8 @@ Desde el directorio del proyecto, ejecuta:
 
     Bash   
     python gui.py
-    
-# Uso Básico
 
-**Ventana Principal:** Ingresa datos del usuario y haz clic en "Registrar Usuario". Accede a otras funciones mediante los botones "Modificaciones" o "Mostrar Reporte"./n
-**Ventana de Modificaciones:** Permite eliminar usuarios, registrar asistencias, modificar datos de usuarios y mostrar un listado completo de inscritos./n
-**Reportes:** Muestra estadísticas y gráficos sobre los usuarios y sus actividades.
-
+## Uso Básico
+* **Ventana Principal:** Ingresa datos del usuario y haz clic en "Registrar Usuario". Accede a otras funciones mediante los botones "Modificaciones" o "Mostrar Reporte".
+* **Ventana de Modificaciones:** Permite eliminar usuarios, registrar asistencias, modificar datos de usuarios y mostrar un listado completo de inscritos.
+* **Reportes:** Muestra estadísticas y gráficos sobre los usuarios y sus actividades.
