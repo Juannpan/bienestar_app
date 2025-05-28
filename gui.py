@@ -143,7 +143,7 @@ class Interfaz:
         ventana.title("Reporte de Análisis")
         ventana.geometry("1200x700")
 
-        df = pd.read_csv("datos.csv")
+        df = pd.read_csv("datos/datos.csv")
         if df.empty: # Verifica si el DataFrame está vacío
             tk.Label(ventana, text="No hay datos registrados aún.").pack(pady=20) 
             return
