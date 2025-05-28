@@ -1,14 +1,15 @@
 # bienestar_app
-Descripción.
+## Descripción.
 
 bienestar_app es una aplicación de escritorio para gestionar usuarios y actividades en un Centro de Bienestar Comunitario. Permite registros, modificaciones, control de asistencias y generación de reportes.
-Características
 
-    - Registro y gestión de usuarios (nombre, edad, actividad, clases).
-    - Cálculo automático de pagos.
-    - Modificación y eliminación de usuarios.
-    - Registro de asistencias.
-    - Visualización de listado de inscritos y reportes analíticos con gráficos (distribución de edades, usuarios por actividad, etc.).
+## Características
+
+* Registro y gestión de usuarios (nombre, edad, actividad, clases).
+* Cálculo automático de pagos.
+* Modificación y eliminación de usuarios.
+* Registro de asistencias.
+* Visualización de listado de inscritos y reportes analíticos con gráficos (distribución de edades, usuarios por actividad, etc.).
 
 ## Requisitos e Instalación
 
