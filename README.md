@@ -1,5 +1,5 @@
 # bienestar_app
-Descripción
+Descripción.
 
 bienestar_app es una aplicación de escritorio para gestionar usuarios y actividades en un Centro de Bienestar Comunitario. Permite registros, modificaciones, control de asistencias y generación de reportes.
 Características
@@ -27,21 +27,22 @@ Características
 
 
 # En logica.py
-class GestorUsuarios:
-    def __init__(self, archivo="datos.csv"): # Asegúrate que diga "datos.csv"
-        self.archivo = archivo
+    class GestorUsuarios:
+        def __init__(self, archivo="datos.csv"): # Asegúrate que diga "datos.csv"
+            self.archivo = archivo
 
 Esto asegura que el archivo de datos datos.csv se cree y lea consistentemente desde la raíz del proyecto.
-Cómo Ejecutar
+
+# Cómo Ejecutar
 
 Desde el directorio del proyecto, ejecuta:
-Bash
 
-python gui.py
-
+    Bash   
+    python gui.py
+    
 # Uso Básico
 
-    Ventana Principal: Ingresa datos del usuario y haz clic en "Registrar Usuario". Accede a otras funciones mediante los botones "Modificaciones" o "Mostrar Reporte".
-    Ventana de Modificaciones: Permite eliminar usuarios, registrar asistencias, modificar datos de usuarios y mostrar un listado completo de inscritos.
-    Reportes: Muestra estadísticas y gráficos sobre los usuarios y sus actividades.
+**Ventana Principal:** Ingresa datos del usuario y haz clic en "Registrar Usuario". Accede a otras funciones mediante los botones "Modificaciones" o "Mostrar Reporte".
+**Ventana de Modificaciones:** Permite eliminar usuarios, registrar asistencias, modificar datos de usuarios y mostrar un listado completo de inscritos.
+**Reportes:** Muestra estadísticas y gráficos sobre los usuarios y sus actividades.
 
