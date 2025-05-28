@@ -138,6 +138,68 @@ class Interfaz:
 
         tk.Button(ventana, text="Guardar", command=guardar_cambios).pack(pady=10)
 
+    def mostrar_reporte_en_ventana(self):# Método para mostrar el reporte de análisis en una nueva ventana
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Reporte de Análisis")
+        ventana.geometry("1200x700")
+
+        df = pd.read_csv("datos.csv")
+        if df.empty: # Verifica si el DataFrame está vacío
+            tk.Label(ventana, text="No hay datos registrados aún.").pack(pady=20) 
+            return
+
+        total = len(df)
+        incompletos = df[df.isnull().any(axis=1)] # Filtra los registros con datos incompletos
+        promedio = df["valor_pagado"].mean()
+        mayor_pago = df.loc[df["valor_pagado"].idxmax()]
+        actividad_top = df["actividad"].mode()[0]
+# Genera el resumen de los datos
+        resumen = f""" #
+ Total de usuarios: {total}
+ Datos incompletos: {len(incompletos)}
+ Promedio de pagos: ${promedio:,.2f}
+ Actividad más popular: {actividad_top}
+ Mayor pago: {mayor_pago['nombre']} - ${mayor_pago['valor_pagado']}
+ Asistencias totales registradas: {df['asistencias'].sum()}
+"""
+
+        tk.Label(ventana, text=resumen, justify="left", anchor="w", font=("Arial", 11)).pack(pady=10)
+
+        fig, axs = plt.subplots(1, 3, figsize=(15, 4))
+        axs[0].hist(df["edad"], bins=10, color="lightblue", edgecolor="black")
+        axs[0].set_title("Distribución de edades") #axis para la distribución de edades
+        axs[0].set_xlabel("Edad")
+
+        df["actividad"].value_counts().plot(kind="bar", ax=axs[1], color="salmon") # Gráfico de barras para la cantidad de usuarios por actividad
+        axs[1].set_title("Usuarios por actividad")
+        axs[1].set_ylabel("Cantidad")
+
+        df["actividad"].value_counts().plot.pie(autopct="%1.1f%%", ax=axs[2])# Gráfico de pastel para la distribución de actividades
+        axs[2].set_title("Distribución por actividad")
+        axs[2].set_ylabel("")
+
+        plt.tight_layout() # Ajusta el layout de los gráficos
+        canvas = FigureCanvasTkAgg(fig, master=ventana) # Crea un canvas para mostrar los gráficos
+        canvas.draw()# Añade los gráficos al canvas
+        canvas.get_tk_widget().pack()
+
+    def mostrar_listado(self): # Método para mostrar el listado de usuarios inscritos en una nueva ventana
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Listado de Inscritos")
+        ventana.geometry("500x400")
+
+        df = pd.read_csv("datos.csv") # Carga los datos de los usuarios desde el archivo CSV
+        if df.empty:
+            tk.Label(ventana, text="No hay usuarios.", font=("Arial", 12)).pack(pady=20) # Verifica si hay usuarios registrados
+            return
+
+        texto = "\n".join([
+            f"{r['nombre']}, Edad: {r['edad']}, Actividad: {r['actividad']}, Clases: {r['clases']}, Asistencias: {r.get('asistencias', 0)}, Pagado: ${r['valor_pagado']}"
+            for _, r in df.iterrows() # Itera sobre los registros del DataFrame
+        ])
+
+        tk.Label(ventana, text="Listado de usuarios inscritos:", font=("Arial", 12, "bold")).pack(pady=10)
+        tk.Message(ventana, text=texto, width=480, font=("Arial", 11)).pack(padx=10)
 
 if __name__ == "__main__":
     root = tk.Tk()
