@@ -48,7 +48,7 @@ class Interfaz:
         except Exception as e:
             messagebox.showerror("Error", str(e))
             
-    def abrir_modificaciones(self):
+    def abrir_modificaciones(self): # Método para abrir la ventana de modificaciones
         ventana = tk.Toplevel(self.root)
         ventana.title("Modificaciones")
         ventana.geometry("300x250")
@@ -57,4 +57,26 @@ class Interfaz:
         tk.Button(ventana, text="Registrar Asistencia", font=("Arial", 12), command=self.asistencia).pack(pady=10, fill="x", padx=30)
         tk.Button(ventana, text="Modificar Usuario", font=("Arial", 12), command=self.modificar_usuario).pack(pady=10, fill="x", padx=30)
         tk.Button(ventana, text="Mostrar Listado", font=("Arial", 12), command=self.mostrar_listado).pack(pady=10, fill="x", padx=30)
+        
+    def eliminar(self): # Método para eliminar un usuario
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Eliminar Usuario")
+        registros = self.gestor.cargar_usuarios()
+        nombres = [r["nombre"] for r in registros]
+        seleccion = tk.StringVar(value=nombres[0] if nombres else "") # Variable para la selección del usuario a eliminar
 
+        ttk.Combobox(ventana, textvariable=seleccion, values=nombres).pack(fill="x", padx=20, pady=10) # Combobox para seleccionar el usuario a eliminar
+
+        def confirmar(): # Método para confirmar la eliminación del usuario
+            self.gestor.eliminar_usuario(seleccion.get()) # Llama al método del gestor para eliminar el usuario
+            messagebox.showinfo("Eliminado", "Usuario eliminado correctamente.")
+            ventana.destroy()
+
+        tk.Button(ventana, text="Eliminar", command=confirmar).pack(pady=10)
+
+    
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = Interfaz(root)
+    root.mainloop()
