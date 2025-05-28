@@ -37,13 +37,24 @@ class Interfaz:
         tk.Button(self.root, text="Mostrar Reporte", font=("Arial", 12), command=self.mostrar_reporte_en_ventana).pack(pady=5, fill="x", padx=50)
         tk.Button(self.root, text="Salir", font=("Arial", 12), command=self.root.quit).pack(pady=10, fill="x", padx=50)
 
-    def registrar(self):
-        try:
-            if int(self.edad.get()) < 15:
-                messagebox.showwarning("Edad mínima", "La edad mínima para registrarse es 15 años.")
+    def registrar(self): # Método para registrar un usuario
+        try: # Verifica si los campos están llenos
+            if int(self.edad.get()) < 15: # Verifica si la edad es menor a 15
+                messagebox.showwarning("Edad mínima", "La edad mínima para registrarse es 15 años.") 
                 return
-            user = Usuario(self.nombre.get(), self.edad.get(), self.actividad.get(), self.clases.get())
-            self.gestor.guardar_usuario(user)
-            messagebox.showinfo("Registro exitoso", f"Usuario registrado correctamente. Total a pagar: ${user.valor_pagado}")
+            user = Usuario(self.nombre.get(), self.edad.get(), self.actividad.get(), self.clases.get()) # Crea una instancia de Usuario
+            self.gestor.guardar_usuario(user) # Guarda el usuario usando el gestor
+            messagebox.showinfo("Registro exitoso", f"Usuario registrado correctamente. Total a pagar: ${user.valor_pagado}") 
         except Exception as e:
             messagebox.showerror("Error", str(e))
+            
+    def abrir_modificaciones(self):
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Modificaciones")
+        ventana.geometry("300x250")
+
+        tk.Button(ventana, text="Eliminar Usuario", font=("Arial", 12), command=self.eliminar).pack(pady=10, fill="x", padx=30)
+        tk.Button(ventana, text="Registrar Asistencia", font=("Arial", 12), command=self.asistencia).pack(pady=10, fill="x", padx=30)
+        tk.Button(ventana, text="Modificar Usuario", font=("Arial", 12), command=self.modificar_usuario).pack(pady=10, fill="x", padx=30)
+        tk.Button(ventana, text="Mostrar Listado", font=("Arial", 12), command=self.mostrar_listado).pack(pady=10, fill="x", padx=30)
+
