@@ -10,7 +10,7 @@ Características
     - Registro de asistencias.
     - Visualización de listado de inscritos y reportes analíticos con gráficos (distribución de edades, usuarios por actividad, etc.).
 
-# Requisitos e Instalación
+## Requisitos e Instalación
 
     Python 3.x
     Bibliotecas: pandas, matplotlib (Tkinter usualmente viene con Python).
@@ -26,14 +26,14 @@ Características
     Los reportes (gui.py) leen de "datos.csv" (en la raíz del proyecto).
 
 
-# En logica.py
+## En logica.py
     class GestorUsuarios:
         def __init__(self, archivo="datos.csv"): # Asegúrate que diga "datos.csv"
             self.archivo = archivo
 
 Esto asegura que el archivo de datos datos.csv se cree y lea consistentemente desde la raíz del proyecto.
 
-# Cómo Ejecutar
+## Cómo Ejecutar
 
 Desde el directorio del proyecto, ejecuta:
 
