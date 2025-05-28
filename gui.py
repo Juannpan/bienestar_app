@@ -74,7 +74,21 @@ class Interfaz:
 
         tk.Button(ventana, text="Eliminar", command=confirmar).pack(pady=10)
 
-    
+    def asistencia(self): # Método para registrar la asistencia de un usuario
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Registrar Asistencia")
+        registros = self.gestor.cargar_usuarios() # Carga los usuarios registrados
+        nombres = [r["nombre"] for r in registros]
+        seleccion = tk.StringVar(value=nombres[0] if nombres else "") # Variable para la selección del usuario
+
+        ttk.Combobox(ventana, textvariable=seleccion, values=nombres).pack(fill="x", padx=20, pady=10) # Combobox para seleccionar el usuario
+
+        def registrar(): # Método para registrar la asistencia del usuario seleccionado
+            self.gestor.registrar_asistencia(seleccion.get())
+            messagebox.showinfo("Asistencia", "Asistencia registrada.")
+            ventana.destroy()
+
+        tk.Button(ventana, text="Registrar", command=registrar).pack(pady=10)
 
 if __name__ == "__main__":
     root = tk.Tk()
